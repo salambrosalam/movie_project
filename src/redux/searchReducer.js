@@ -45,22 +45,13 @@ const setFetchingAC = (isFetching) => {
 }
 
 export const fetchFilmsTC = () => async dispatch => {
-  dispatch({
-    type: TOGGLE_FETCHING,
-    payload: true,
-  });
+  dispatch(setFilmsAC(true));
   try {
     // axios.get().then(response => response.data); the same as below
     const {data} = await axios.get("https://api.themoviedb.org/4/list/1?page=1&api_key=5e595d34415399e183054782a7f38231");
-    dispatch({
-      type: SET_FILMS,
-      payload: [1,2,3,4],
-    });
+    dispatch(setFetchingAC(data));
   } catch (e) {
     console.log('Error', e);
   }
-  dispatch({
-    type: TOGGLE_FETCHING,
-    payload: false,
-  });
+  dispatch(setFilmsAC(false));
 };
