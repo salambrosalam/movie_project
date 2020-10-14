@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const SET_FILMS = "SET_FILMS";
 const TOGGLE_FETCHING = "TOGGLE_FETCHING";
 
@@ -6,33 +8,59 @@ let initialState = {
     isFetching: false
 }
 
-export const searchReducer = (state = initialState, action) => {
-    switch (action.type) {
+// const action = {
+//   type: 'keys',
+//   payload: '',
+// }
+
+export const searchReducer = (state = initialState, {type, payload}) => {
+    switch (type) {
         case SET_FILMS:
             return{
                 ...state,
-                films: action.films
+                films: payload.films
             }
         case TOGGLE_FETCHING:
             return{
                 ...state,
-                isFetching: action.isFetching
+                isFetching: payload.isFetching
             }
         default:
             return state;
     }
 }
 
-export const setFilmsAC = (films) => {
+const setFilmsAC = (films) => {
     return {
         type: SET_FILMS,
-        films
+        payload: films
     }
 }
 
-export const setFetchingAC = (isFetching) => {
+const setFetchingAC = (isFetching) => {
     return {
         type: TOGGLE_FETCHING,
-        isFetching
+        payload: isFetching,
     }
 }
+
+export const fetchFilmsTC = () => async dispatch => {
+  dispatch({
+    type: TOGGLE_FETCHING,
+    payload: true,
+  });
+  try {
+    // axios.get().then(response => response.data); the same as below
+    const {data} = await axios.get("https://api.themoviedb.org/4/list/1?page=1&api_key=5e595d34415399e183054782a7f38231");
+    dispatch({
+      type: SET_FILMS,
+      payload: [1,2,3,4],
+    });
+  } catch (e) {
+    console.log('Error', e);
+  }
+  dispatch({
+    type: TOGGLE_FETCHING,
+    payload: false,
+  });
+};

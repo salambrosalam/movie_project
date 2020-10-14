@@ -1,10 +1,11 @@
+import React from 'react';
 import loader from "../../../assets/loader.svg"
-import {View, Image} from "react-native";
+import {View, Image, ActivityIndicator} from "react-native";
 
 export const Loader = () => {
     return (
         <View>
-            <Image source={loader}/>
+            <ActivityIndicator size="large" />
         </View>
     )
 }
