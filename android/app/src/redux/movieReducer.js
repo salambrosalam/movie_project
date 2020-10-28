@@ -98,3 +98,4 @@ export const getFilmsTC = (query,page) => async dispatch => {
         console.log(e)
     }
 }
+

@@ -3,44 +3,61 @@ import {View, Text, Image, StyleSheet, ScrollView, ActivityIndicator} from 'reac
 import {showDescriptionTC} from '../../android/app/src/redux/movieReducer';
 import {useDispatch, useSelector} from 'react-redux';
 import heart from '../assets/heart_2.png';
-import {Searchbar} from 'react-native-paper';
+import empty_heart from "../assets/empty_heart.png";
 
 
 const MovieDetails = ({route}) => {
 
-    let [filmDetails, setFilmDetails] = useState({
-        filmId: route.params.id,
-    });
+    // let [filmDetails, setFilmDetails] = useState({
+    //     filmId: route.params.id,
+    // });
 
     const dispatch = useDispatch();
 
-    const id = filmDetails.filmId;
+    // const id = filmDetails.filmId;
 
     useEffect(() => {
 
-        dispatch(showDescriptionTC(id));
+        dispatch(showDescriptionTC(route.params.id));
 
-    }, [filmDetails.filmId, setFilmDetails]);
+    }, []);
 
     const state = useSelector((state) => state);
 
     console.log(route.params.id);
-    console.log('localState: ', filmDetails.filmId);
+    // console.log('localState: ', filmDetails.filmId);
     console.log('filmDetailsObject: ', state.FilmDetails);
 
-    const popularity = Math.round(state.FilmDetails.vote_average);
-    let popularityItems = [];
-    for (let i = 1; i <= popularity; i++) {
-        popularityItems.push(1);
+    const calculateHandler = () => {
+        const popularity = Math.round(state.FilmDetails.vote_average);
+
+        let popularityItems = [];
+        for (let i = 1; i <= popularity; i++) {
+            popularityItems.push(1);
+        }
+        return popularityItems;
     }
+
+    const calculateEmptyHearts = () => {
+        const popularity = Math.round(state.FilmDetails.vote_average);
+
+        const popularity_empty = 10 - popularity;
+        const popularity_empty_items = [];
+        for (let i = 1; i <= popularity_empty; i++) {
+            popularity_empty_items.push(1);
+        }
+        return popularity_empty_items;
+    }
+
+
     if (state.isFetching) {
         return <View style={styles.container}>
-            <Searchbar style={styles.search} onChangeText={text => changeHandler(text)}/>
             <ActivityIndicator size="large" color="#00ff00" />
         </View>;
     }
     return (
         <ScrollView style={styles.container}>
+            {state.FilmDetails ?
             <View style={styles.wrapper}>
                 <Image style={styles.img} source={{uri: `https://image.tmdb.org/t/p/w200/${state.FilmDetails.poster_path}`}}/>
                 <Text>{route.params.id}</Text>
@@ -51,9 +68,11 @@ const MovieDetails = ({route}) => {
                 <Text style={styles.text}>{route.params.id}</Text>
                 <Text style={styles.text}>Popularity:</Text>
                 <View style={styles.voteContainer}>
-                    {popularityItems.map(item => <Image style={styles.rankImage} source={heart}/>)}
+                    {calculateHandler().map(item => <Image style={styles.rankImage} source={heart}/>)}
+                    {calculateEmptyHearts().map(item => <Image style={styles.rankImage} source={empty_heart}/>)}
                 </View>
             </View>
+             : null}
         </ScrollView>
     );
 };

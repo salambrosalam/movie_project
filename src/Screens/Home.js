@@ -26,8 +26,10 @@ const Home = (props) => {
     const dispatch = useDispatch();
     useEffect(() => {
             if (params.query !== '') {
+
                 dispatch(getFilmsTC(params.query, params.page));
             }
+
         }
         , [params.query, setParams]);
 

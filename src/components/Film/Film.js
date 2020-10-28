@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        justifyContent: "flex-end",
+        // alignSelf: "flex-end",
         margin: 10,
         width: 140,
         backgroundColor: "white",
