@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet, ScrollView, ActivityIndicator} from 'react-native';
-import {showDescriptionTC} from '../../android/app/src/redux/movieReducer';
+import {showDescriptionTC} from '../redux/movieReducer';
 import {useDispatch, useSelector} from 'react-redux';
 import heart from '../assets/heart_2.png';
 import empty_heart from "../assets/empty_heart.png";

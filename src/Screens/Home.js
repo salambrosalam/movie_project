@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, Button, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
 import {Searchbar} from 'react-native-paper';
-import {getFilmsTC} from '../../android/app/src/redux/movieReducer';
+import {getFilmsTC} from '../redux/movieReducer';
 import {useDispatch, useSelector} from 'react-redux';
 import Film from '../components/Film/Film';
 import StartFragment from '../components/startFragment/StartFragment';

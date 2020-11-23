@@ -9,7 +9,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Provider as PaperProvider} from 'react-native-paper';
 import Home from './src/Screens/Home';
 import MovieDetails from './src/Screens/MoviesDetails';
-import store from './android/app/src/redux/redux_store';
+import store from './src/redux/redux_store';
 import {Provider} from 'react-redux';
 
 const Stack = createStackNavigator();

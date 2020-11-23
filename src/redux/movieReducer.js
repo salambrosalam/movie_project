@@ -1,4 +1,4 @@
-import {filmsAPI} from '../../../../src/api/api';
+import {filmsAPI} from '../api/api';
 const SEARCH_FILM = "SEARCH_FILM";
 const NEXT_PAGE = "NEXT_PAGE";
 const SHOW_DESCRIPTION = "SHOW_DESCRIPTION";
